@@ -1,0 +1,4 @@
+"use client";
+import {FormEvent,useState} from "react";
+const API=process.env.NEXT_PUBLIC_API_URL;
+export default function NetScanPage(){const[domain,setDomain]=useState("");const[result,setResult]=useState<any>(null);const[loading,setLoading]=useState(false);async function submit(e:FormEvent){e.preventDefault();setLoading(true);try{const r=await fetch((API||"")+"/api/v1/netscan/domain",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({domain})});setResult(await r.json())}finally{setLoading(false)}}return <main className="shell"><span className="eyebrow">NETSCAN</span><h1>Domain Intelligence</h1><form onSubmit={submit}><input value={domain} onChange={e=>setDomain(e.target.value)} placeholder="example.com" required/><button disabled={loading}>{loading?"Searching...":"Search"}</button></form>{result&&<pre>{JSON.stringify(result,null,2)}</pre>}</main>}
