@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default async function PlannedPage({params}:{params:Promise<{module:string}>}){const {module}=await params;const name=module.charAt(0).toUpperCase()+module.slice(1);return <main className="shell"><span className="eyebrow">POLARIS MODULE</span><h1>{name}</h1><p>This module is reserved in the architecture and is not yet backed by a live provider.</p><p>Polaris will keep this state explicit rather than presenting fabricated search results.</p><Link href="/">Back to modules</Link></main>}
