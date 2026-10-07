@@ -1,0 +1,4 @@
+"use client";
+import {FormEvent,useState} from "react";
+const API=process.env.NEXT_PUBLIC_API_URL;
+export default function CryptoPage(){const[address,setAddress]=useState("");const[result,setResult]=useState<any>(null);async function submit(e:FormEvent){e.preventDefault();const r=await fetch((API||"")+"/api/v1/crypto/lookup",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({address})});setResult(await r.json())}return <main className="shell"><span className="eyebrow">CRYPTO</span><h1>Crypto Tracing</h1><p>Bitcoin and EVM address intelligence.</p><form onSubmit={submit}><input value={address} onChange={e=>setAddress(e.target.value)} placeholder="Bitcoin or 0x... address" required/><button>Lookup</button></form>{result&&<pre>{JSON.stringify(result,null,2)}</pre>}</main>}
