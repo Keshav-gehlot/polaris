@@ -1,0 +1,4 @@
+"use client";
+import {FormEvent,useState} from "react";
+const API=process.env.NEXT_PUBLIC_API_URL;
+export default function UsernamePage(){const[username,setUsername]=useState("");const[result,setResult]=useState<any>(null);async function submit(e:FormEvent){e.preventDefault();const r=await fetch((API||"")+"/api/v1/username/lookup?username="+encodeURIComponent(username));setResult(await r.json())}return <main className="shell"><span className="eyebrow">USERNAME RESEARCH</span><h1>Username Intelligence</h1><p>Provider queries remain disabled until individual public sources are configured.</p><form onSubmit={submit}><input value={username} onChange={e=>setUsername(e.target.value)} placeholder="username" required/><button>Check</button></form>{result&&<pre>{JSON.stringify(result,null,2)}</pre>}</main>}
